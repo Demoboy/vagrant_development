@@ -2,65 +2,17 @@
     become: yes
     apt: pkg=cups state=latest
 
--   name: Setup Mesa receiving label printer
-    command: lpadmin -p MesaReceivingLabelPrinter -v lpd://svr.print.phx.nationwidesurplus.com/CHD-Receiving-Label-Printer -E -m drv:///sample.drv/zebra.ppd
+-   name: Install printers
+    become: yes
+    command: "lpadmin -p {{item.name }} -v {{ item.uri }} -E -m drv:///sample.drv/zebra.ppd"
+    with_items: "{{ printers }}"
 
--   name: Set Mesa receiving label printer paper size
-    command: lpoptions -p MesaReceivingLabelPrinter -o media=w288h432
+-   name: Configure media types
+    become: yes
+    command: "lpoptions -p {{ item.name }} -o media={{ item.media }}"
+    with_items: "{{ printers }}"
 
--   name: Set Mesa receiving label printer resolution
-    command: lpoptions -p MesaReceivingLabelPrinter -o Resolution=203dpi
-
--   name: Setup Mesa computer label printer
-    command: lpadmin -p MesaComputerLabelPrinter -v lpd://svr.print.phx.nationwidesurplus.com/PHX-Computer-Label-Printer -E -m drv:///sample.drv/zebra.ppd
-
--   name: Set Mesa computer label printer paper size
-    command: lpoptions -p MesaComputerLabelPrinter -o media=w288h144
-
--   name: Set Mesa computer label printer resolution
-    command: lpoptions -p MesaComputerLabelPrinter -o Resolution=300dpi
-
--   name: Setup Memphis computer label printer
-    command: lpadmin -p MemphisComputerLabelPrinter -v lpd://svr.print.phx.nationwidesurplus.com/MEM-Computer-Label-Printer -E -m drv:///sample.drv/zebra.ppd
-
--   name: Set Memphis computer label printer paper size
-    command: lpoptions -p MemphisComputerLabelPrinter -o media=w288h144
-
--   name: Set Memphis computer label printer resolution
-    command: lpoptions -p MemphisComputerLabelPrinter -o Resolution=203dpi
-
--   name: Setup Mesa Redzone 1 sku printer
-    command: lpadmin -p SKU-PHX-Redzone_1 -v lpd://svr.print.phx.nationwidesurplus.com/PHX-Redzone-1-Sku -E -m drv:///sample.drv/zebra.ppd
-
--   name: Set Mesa Redzone 1 sku printer paper size
-    command: lpoptions -p SKU-PHX-Redzone_1 -o media=w288h72
-
--   name: Set Mesa Redzone 1 sku printer resolution
-    command: lpoptions -p SKU-PHX-Redzone_1 -o Resolution=300dpi
-
--   name: Setup Mesa Redzone 2 sku printer
-    command: lpadmin -p SKU-PHX-Redzone_2 -v lpd://svr.print.phx.nationwidesurplus.com/PHX-Redzone-2-Sku -E -m drv:///sample.drv/zebra.ppd
-
--   name: Set Mesa Redzone 1 sku printer paper size
-    command: lpoptions -p SKU-PHX-Redzone_2 -o media=w288h72
-
--   name: Set Mesa Redzone 1 sku printer resolution
-    command: lpoptions -p SKU-PHX-Redzone_2 -o Resolution=300dpi
-
--   name: Setup Warehouse sku printer
-    command: lpadmin -p SKU-PHX-Warehouse -v lpd://svr.print.phx.nationwidesurplus.com/PHX-Warehouse-Sku -E -m drv:///sample.drv/zebra.ppd
-
--   name: Set Mesa Warehouse sku printer paper size
-    command: lpoptions -p SKU-PHX-Warehouse -o media=288h72
-
--   name: Set Mesa warehouse sku printer resolution
-    command: lpoptions -p SKU-PHX-Warehouse -o Resolution=300dpi
-
--   name: Setup Mesa Test sku printer
-    command: lpadmin -p SKU-PHX-Test -v lpd://svr.print.phx.nationwidesurplus.com/PHX-Test -E -m drv:///sample.drv/zebra.ppd
-
--   name: Set Mesa Test sku printer paper size
-    command: lpoptions -p SKU-PHX-Test -o media=w288h72
-
--   name: Set Mesa Test sku printer resolution
-    command: lpoptions -p SKU-PHX-Test -o Resolution=203dpi
+-   name: Confirgure printer DPIs
+    become: yes
+    command: "lpoptions -p {{ item.name }} -o Resolution={{ item.dpi }}"
+    with_items: "{{ printers }}"
