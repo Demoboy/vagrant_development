@@ -41,8 +41,8 @@ fi
 
 if ! [ -f $PROJECT_DIR/Vagrantfile ]; then
     cat > $PROJECT_DIR/Vagrantfile <<EOF
-VAGRANT_DOTFILE_PATH = '$PROJECT_DIR/.vagrant';
-require_relative '$PROJECT_DIR/vagrant/vagrantfile.dist';
+VAGRANT_DOTFILE_PATH = '.vagrant';
+require_relative 'vagrant/vagrantfile.dist';
 EOF
 fi
 

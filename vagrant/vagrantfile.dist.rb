@@ -21,12 +21,12 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.provision 'lamp', type: RbConfig::CONFIG['host_os'] =~ /w32/ ? :ansible_local : :ansible do |lamp|
-    lamp.playbook = 'dev/ansible/lamp/playbook.yml'
+    lamp.playbook = 'ansible/lamp/playbook.yml'
     lamp.limit = 'all'
   end
 
   config.vm.provision 'setup', type: RbConfig::CONFIG['host_os'] =~ /w32/ ? :ansible_local : :ansible, run: 'always' do |setup|
-    setup.playbook = 'dev/ansible/setup/playbook.yml'
+    setup.playbook = 'ansible/setup/playbook.yml'
     setup.limit = 'all'
   end
 
@@ -62,7 +62,7 @@ Vagrant.configure('2') do |config|
         config.ssh.forward_agent = true
 
         config.vm.synced_folder '.', '/vagrant', id: 'v-root', mount_options: %w(rw tcp nolock noacl async v3), type: 'nfs', nfs_udp: false
-        config.vm.synced_folder Dir.home + '/Dropbox/SSH', '/home/vagrant/host_ssh', mount_options: %w(rw tcp nolock noacl async v3), type: 'nfs', nfs_udp: false
+        config.vm.synced_folder Dir.home + '/.ssh', '/home/vagrant/host_ssh', mount_options: %w(rw tcp nolock noacl async v3), type: 'nfs', nfs_udp: false
 
       config.vm.provider :virtualbox do |virtualbox|
         virtualbox.customize ['modifyvm', :id, '--memory', $amount_of_ram]
