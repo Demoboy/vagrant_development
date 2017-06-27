@@ -5,9 +5,9 @@ Boilerplate which sets up a simple development environment with Vagrant, then se
 ## Setup:
 
 1. Run:
-`curl https://raw.githubusercontent.com/128keaton/vagrant_development/master/install.sh | bash`
+`curl -L https://goo.gl/AYUUmz > /tmp/install.sh && bash /tmp/install.sh new_project`
 
-2. Navigate to the `dev` directory.
+2. Navigate to the `new_project` directory.
 
 3. Coming soon.
 
