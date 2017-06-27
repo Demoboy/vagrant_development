@@ -2,22 +2,14 @@
     become: yes
     shell: curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer warn=no
 
--   name: Configure global composer.json
-    become: yes
-    become_user: vagrant
-    template: src=composer.json.tpl dest=/home/vagrant/.config/composer/composer.json
 
--   name: Update global composer
-    become: yes
-    become_user: vagrant
-    command: composer global update
 
-#-   name: Install global composer repos
-#    composer:
-#        command: require
-#        arguments: "{{ item }}"
-#        working_dir: "/home/{{ user }}/.config/composer"
-#    with_items: "{{ global_composer_packages }}"
+-   name: Install global composer repos
+    composer:
+        command: require
+        arguments: "{{ item }}"
+        working_dir: "/home/{{ user }}/.config/composer"
+    with_items: "{{ global_composer_packages }}"
         
 -   name: Add composer to path
     lineinfile:
