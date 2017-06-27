@@ -15,14 +15,13 @@ php_versioned_packages: [
     "mysql"
 ]
 php_extra_versioned_packages: []
-#global_composer_packages: [
-#  "phpunit/phpunit",
-#  "squizlabs/php_codesniffer",
-#  "phpmd/phpmd",
-#  "friendsofphp/php-cs-fixer",
-#  "deployer/deployer",
-#  "phpstan/phpstan",
-#]
+global_composer_packages: [
+  "phpunit/phpunit",
+  "squizlabs/php_codesniffer",
+  "phpmd/phpmd",
+  "friendsofphp/php-cs-fixer",
+  "deployer/deployer"
+]
 php_other_packages: [
     "php-pear",
     "php-xdebug",

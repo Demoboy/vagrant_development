@@ -62,7 +62,7 @@ Vagrant.configure('2') do |config|
         config.ssh.forward_agent = true
 
         config.vm.synced_folder '.', '/vagrant', id: 'v-root', mount_options: %w(rw tcp nolock noacl async v3), type: 'nfs', nfs_udp: false
-        config.vm.synced_folder Dir.home + '/Dropbox/SSH', '/home/vagrant/host_ssh', mount_options: %w(rw tcp nolock noacl async v3), type: 'nfs', nfs_udp: false
+        config.vm.synced_folder Dir.home + '/.ssh', '/home/vagrant/host_ssh', mount_options: %w(rw tcp nolock noacl async v3), type: 'nfs', nfs_udp: false
 
       config.vm.provider :virtualbox do |virtualbox|
         virtualbox.customize ['modifyvm', :id, '--memory', $amount_of_ram]
