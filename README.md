@@ -5,7 +5,7 @@ Boilerplate which sets up a simple development environment with Vagrant, then se
 ## Setup:
 
 1. Run:
-`curl https://goo.gl/AYUUmz > /tmp/install.sh && bash /tmp/install.sh`
+`curl https://goo.gl/AYUUmz > /tmp/install.sh && bash /tmp/install.sh new_project`
 
 2. Navigate to the `new_project` directory.
 
