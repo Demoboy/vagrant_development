@@ -21,12 +21,12 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.provision 'lamp', type: RbConfig::CONFIG['host_os'] =~ /w32/ ? :ansible_local : :ansible do |lamp|
-    lamp.playbook = 'ansible/lamp/playbook.yml'
+    lamp.playbook = 'dev/ansible/lamp/playbook.yml'
     lamp.limit = 'all'
   end
 
   config.vm.provision 'setup', type: RbConfig::CONFIG['host_os'] =~ /w32/ ? :ansible_local : :ansible, run: 'always' do |setup|
-    setup.playbook = 'ansible/setup/playbook.yml'
+    setup.playbook = 'dev/ansible/setup/playbook.yml'
     setup.limit = 'all'
   end
 

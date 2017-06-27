@@ -18,23 +18,27 @@ fi
 
 echo "Creating project in folder $1"
 
+mkdir $PROJECT_DIR
+
 echo "Cloning the development template"
-git clone https://github.com/128keaton/vagrant_development $PROJECT_DIR --quiet
+git clone https://github.com/128keaton/vagrant_development $PROJECT_DIR/dev/ --quiet
 
 echo "Cleaning up the mess we made"
-mv $PROJECT_DIR/.git $PROJECT_DIR/.git.old
+mv $PROJECT_DIR/dev/.git $PROJECT_DIR/dev/.git.old
+rm $PROJECT_DIR/dev/install.sh 
+rm $PROJECT_DIR/dev/README.md
 
 echo "Performing final setup"
 
-if ! [ -f $PROJECT_DIR/ansible/lamp/playbook.yml ]; then
-    cat >  $PROJECT_DIR/ansible/lamp/playbook.yml <<EOF
+if ! [ -f $PROJECT_DIR/dev/ansible/lamp/playbook.yml ]; then
+    cat >  $PROJECT_DIR/dev/ansible/lamp/playbook.yml <<EOF
 - include: "playbook.dist.yml"
 EOF
 
 fi
 
-if ! [ -f $PROJECT_DIR/ansible/setup/playbook.yml ]; then
-    cat > $PROJECT_DIR/ansible/lamp/playbook.yml <<EOF
+if ! [ -f $PROJECT_DIR/dev/ansible/setup/playbook.yml ]; then
+    cat > $PROJECT_DIR/dev/ansible/lamp/playbook.yml <<EOF
 - include: "playbook.dist.yml"
 EOF
 fi
@@ -42,12 +46,12 @@ fi
 if ! [ -f $PROJECT_DIR/Vagrantfile ]; then
     cat > $PROJECT_DIR/Vagrantfile <<EOF
 VAGRANT_DOTFILE_PATH = '.vagrant';
-require_relative 'vagrant/vagrantfile.dist';
+require_relative 'dev/vagrant/vagrantfile.dist';
 EOF
 fi
 
 echo "Updating project name"
 
-perl -pi -e 's/placeholder.dev/$PROJECT_DIR.dev/g' $PROJECT_DIR/vagrant/vagrant_vars.rb
+perl -pi -e "s/placeholder.dev/$PROJECT_DIR.dev/g" $PROJECT_DIR/dev/vagrant/vagrant_vars.rb
 
 echo "Done! Run vagrant up inside the project folder: $PROJECT_DIR"
