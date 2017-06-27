@@ -24,8 +24,25 @@ git clone https://github.com/Demoboy/vagrant_development $PROJECT_DIR
 echo "Cleaning up the mess we made"
 mv $PROJECT_DIR/.git $PROJECT_DIR/.git.old
 
-echo "Fixing file permissions"
-chmod +x $PROJECT_DIR/bin/setup
+echo "Performing final setup"
 
-echo "Running setup script"
-sh $PROJECT_DIR/bin/setup
+if ! [ -f $PROJECT_DIR/ansible/lamp/playbook.yml ]; then
+    cat >  $PROJECT_DIR/ansible/lamp/playbook.yml <<EOF
+- include: "playbook.dist.yml"
+EOF
+
+fi
+
+if ! [ -f $PROJECT_DIR/ansible/setup/playbook.yml ]; then
+    cat > $PROJECT_DIR/ansible/lamp/playbook.yml <<EOF
+- include: "playbook.dist.yml"
+EOF
+fi
+
+if ! [ -f $PROJECT_DIR/Vagrantfile ]; then
+    cat > $PROJECT_DIR/Vagrantfile <<EOF
+VAGRANT_DOTFILE_PATH = '$PROJECT_DIR/.vagrant';
+require_relative '$PROJECT_DIR/vagrant/vagrantfile.dist';
+EOF
+fi
+
