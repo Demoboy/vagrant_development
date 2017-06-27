@@ -19,7 +19,7 @@ fi
 echo "Creating project in folder $1"
 
 echo "Cloning the development template"
-git clone https://github.com/128keaton/vagrant_development $PROJECT_DIR
+git clone https://github.com/128keaton/vagrant_development $PROJECT_DIR --quiet
 
 echo "Cleaning up the mess we made"
 mv $PROJECT_DIR/.git $PROJECT_DIR/.git.old
@@ -46,3 +46,8 @@ require_relative 'vagrant/vagrantfile.dist';
 EOF
 fi
 
+echo "Updating project name"
+
+perl -pi -e 's/placeholder.dev/$PROJECT_DIR.dev/g' $PROJECT_DIR/vagrant/vagrant_vars.rb
+
+echo "Done! Run vagrant up inside the project folder: $PROJECT_DIR"
