@@ -50,8 +50,11 @@ require_relative 'dev/vagrant/vagrantfile.dist';
 EOF
 fi
 
+
+PROJECT_NAME=$(sed 's/[^a-z  A-Z]//g' <<<  $PROJECT_DIR )
+
 echo "Updating project name"
 
-perl -pi -e "s/placeholder.dev/$PROJECT_DIR.dev/g" $PROJECT_DIR/dev/vagrant/vagrant_vars.rb
+perl -pi -e "s/placeholder.dev/$PROJECT_NAME.dev/g" $PROJECT_DIR/dev/vagrant/vagrant_vars.rb
 
 echo "Done! Run vagrant up inside the project folder: $PROJECT_DIR"
