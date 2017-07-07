@@ -15,13 +15,14 @@ php_versioned_packages: [
     "mysql"
 ]
 php_extra_versioned_packages: []
-global_composer_packages: [
-  "phpunit/phpunit",
-  "squizlabs/php_codesniffer",
-  "phpmd/phpmd",
-  "friendsofphp/php-cs-fixer",
-  "deployer/deployer"
-]
+#global_composer_packages: [
+#  "phpunit/phpunit",
+#  "squizlabs/php_codesniffer",
+#  "phpmd/phpmd",
+#  "friendsofphp/php-cs-fixer",
+#  "deployer/deployer",
+#  "phpstan/phpstan",
+#]
 php_other_packages: [
     "php-pear",
     "php-xdebug",
@@ -56,7 +57,7 @@ database_name: 'database'
 database_user: 'root'
 database_password: 'password'
 extra_sys_packages: []
-wkhtmltopdf_url: "http://download.gna.org/wkhtmltopdf/0.12/{{ wkhtmltopdf_version }}/wkhtmltox-{{ wkhtmltopdf_version }}_linux-generic-amd64.tar.xz"
+wkhtmltopdf_url: "https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/{{ wkhtmltopdf_version }}/wkhtmltox-{{ wkhtmltopdf_version }}_linux-generic-amd64.tar.xz"
 web_server: apachephp
 timezone: America/Phoenix
 max_nesting_level: 300
