@@ -18,7 +18,7 @@ fi
 
 echo "Creating project in folder $1"
 
-mkdir $PROJECT_DIR
+symfony new $PROJECT_DIR
 
 echo "Cloning the development template"
 git clone https://github.com/128keaton/vagrant_development $PROJECT_DIR/dev/ --quiet
