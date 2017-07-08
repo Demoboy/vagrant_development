@@ -2,6 +2,12 @@
     become: yes
     shell: curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer warn=no
 
+-   name: ensure composer folder is created
+    file: >
+      path="/home/{{ user }}/.config/composer/"
+      recurse=yes
+      state=directory
+
 -   name: Configure global composer.json
     become: yes
     become_user: "{{ user }}"
@@ -12,20 +18,12 @@
     become_user: "{{ user }}"
     command: composer global update
 
-#-   name: Install global composer repos
-#    composer:
-#        command: require
-#        arguments: "{{ item }}"
-#        working_dir: "/home/{{ user }}/.config/composer"
-#    with_items: "{{ global_composer_packages }}"
-
 -   name: Add composer to path
     lineinfile:
         dest: "~/.bash_profile"
         create: yes
         regexp: "export PATH=$PATH:/home/{{ user }}/.config/composer/vendor/bin"
         line: "export PATH=$PATH:/home/{{ user }}/.config/composer/vendor/bin"
-
 
 -   name: Configure phpcs
     command: "/home/{{ user }}/.config/composer/vendor/bin/phpcs --config-set installed_paths /home/{{ user }}/.config/composer/vendor/escapestudios/symfony2-coding-standard"

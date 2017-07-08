@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+#create playbook file if not exist
+if ! [ -f dev/ansible/lamp/playbook.yml ]; then
+    cat >  dev/ansible/lamp/playbook.yml <<EOF
+- include: "playbook.dist.yml"
+EOF
+
+fi
+
+if ! [ -f dev/ansible/setup/playbook.yml ]; then
+    cat > dev/ansible/lamp/playbook.yml <<EOF
+- include: "playbook.dist.yml"
+EOF
+fi
+
+if ! [ -f Vagrantfile ]; then
+    cat > Vagrantfile <<EOF
+VAGRANT_DOTFILE_PATH = 'dev/.vagrant';
+require_relative 'dev/vagrant/vagrantfile.dist';
+EOF
+fi
