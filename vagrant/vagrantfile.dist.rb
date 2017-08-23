@@ -63,6 +63,7 @@ Vagrant.configure('2') do |config|
 
         config.vm.synced_folder '.', '/vagrant', id: 'v-root', mount_options: %w(rw tcp nolock noacl async v3), type: 'nfs', nfs_udp: false
         config.vm.synced_folder Dir.home + '/.ssh', '/home/vagrant/host_ssh', mount_options: %w(rw tcp nolock noacl async v3), type: 'nfs', nfs_udp: false
+        config.vm.linked_clone = true if Vagrant::VERSION =~ /^1.8/
 
       config.vm.provider :virtualbox do |virtualbox|
         virtualbox.customize ['modifyvm', :id, '--memory', $amount_of_ram]

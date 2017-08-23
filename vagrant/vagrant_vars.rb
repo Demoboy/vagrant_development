@@ -1,5 +1,5 @@
 module VagrantVars
-    $dev_host_name = '.dev'
+    $dev_host_name = 'vagrant.dev'
     $ip_address = '192.168.33.165' #IP address for the dev server. It is important that this does not conflict with the IP address range of your local network
     $vm_box = 'bento/ubuntu-16.04'
 
